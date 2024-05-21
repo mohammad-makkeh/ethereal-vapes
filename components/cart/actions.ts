@@ -100,10 +100,10 @@ export async function deleteItem(prevState: any, selectedVariantId: string) {
   if (!selectedVariantId) {
     return 'Missing product variant ID';
   }
-
+  
   try {
     cart = JSON.parse(cookies().get('cart')?.value || "{}");
-    if (!cart.items || cart.items[selectedVariantId]) return;
+    if (!cart.items || !cart.items[selectedVariantId]) return;
 
     const price = getProductPriceByVariant(selectedVariantId)
     if (!price) return console.error("could not get the price of variant: " + selectedVariantId);
@@ -114,7 +114,6 @@ export async function deleteItem(prevState: any, selectedVariantId: string) {
     cart.totalQuantity = cart.totalQuantity - cart.items[selectedVariantId];
 
     delete cart.items[selectedVariantId];
-
     cookies().set('cart', JSON.stringify(cart));
 
     revalidateTag(TAGS.cart);
