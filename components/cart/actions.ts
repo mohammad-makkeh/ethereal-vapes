@@ -1,21 +1,31 @@
 'use server';
 
 import { TAGS } from 'lib/constants';
-import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
+import { Cart } from 'lib/types';
+import { getProductPriceByVariant } from 'lib/utils';
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 
-export async function addItem(prevState: any, selectedVariantId: string | undefined) {
+function generateOrderId() {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let orderId = '';
+  const length = 10;
+
+  for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      orderId += characters[randomIndex];
+  }
+
+  return orderId;
+}
+
+
+export async function addItem(previousState: any, selectedVariantId: string | undefined) {
   let cartId = cookies().get('cartId')?.value;
   let cart;
 
-  if (cartId) {
-    cart = await getCart(cartId);
-  }
-
-  if (!cartId || !cart) {
-    cart = await createCart();
-    cartId = cart.id;
+  if (!cartId) {
+    cartId = generateOrderId();
     cookies().set('cartId', cartId);
   }
 
@@ -24,60 +34,109 @@ export async function addItem(prevState: any, selectedVariantId: string | undefi
   }
 
   try {
-    await addToCart(cartId, [{ merchandiseId: selectedVariantId, quantity: 1 }]);
+    cart = JSON.parse(cookies().get('cart')?.value || "{}");
+    if (!cart.items) cart.items = {}
+    if (cart.items[selectedVariantId]) {
+      cart.items[selectedVariantId] = ++cart.items[selectedVariantId];
+    }
+    else
+      cart.items[selectedVariantId] = 1;
+    const price = getProductPriceByVariant(selectedVariantId)
+    if (price) {
+      if (cart.totalAmount)
+        cart.totalAmount = +cart.totalAmount + price.amount;
+      else cart.totalAmount = price.amount;
+    }
+    if (cart.totalQuantity)
+      cart.totalQuantity = cart.totalQuantity + 1;
+    else cart.totalQuantity = 1;
+    cookies().set('cart', JSON.stringify(cart));
+
     revalidateTag(TAGS.cart);
   } catch (e) {
     return 'Error adding item to cart';
   }
 }
 
-export async function removeItem(prevState: any, lineId: string) {
-  const cartId = cookies().get('cartId')?.value;
-
+export async function removeItem(prevState: any, selectedVariantId: string) {
+  let cartId = cookies().get('cartId')?.value;
+  let cart;
+  
   if (!cartId) {
-    return 'Missing cart ID';
+    return;
   }
-
+  
+  if (!selectedVariantId) {
+    return 'Missing product variant ID';
+  }
+  
   try {
-    await removeFromCart(cartId, [lineId]);
-    revalidateTag(TAGS.cart);
-  } catch (e) {
-    return 'Error removing item from cart';
-  }
-}
+    cart = JSON.parse(cookies().get('cart')?.value || "{}");
+    if (!cart.items || !cart.items[selectedVariantId]) return;
+    if(cart.items[selectedVariantId] === 1) deleteItem(prevState, selectedVariantId);
+    cart.items[selectedVariantId] = --cart.items[selectedVariantId];
 
-export async function updateItemQuantity(
-  prevState: any,
-  payload: {
-    lineId: string;
-    variantId: string;
-    quantity: number;
-  }
-) {
-  const cartId = cookies().get('cartId')?.value;
-
-  if (!cartId) {
-    return 'Missing cart ID';
-  }
-
-  const { lineId, variantId, quantity } = payload;
-
-  try {
-    if (quantity === 0) {
-      await removeFromCart(cartId, [lineId]);
-      revalidateTag(TAGS.cart);
-      return;
+    const price = getProductPriceByVariant(selectedVariantId)
+    if (price) {
+      cart.totalAmount = +cart.totalAmount - price.amount;
     }
+    else return console.error("could not get the price of variant: " + selectedVariantId);
+    cart.totalQuantity = cart.totalQuantity - 1;
+    cookies().set('cart', JSON.stringify(cart));
 
-    await updateCart(cartId, [
-      {
-        id: lineId,
-        merchandiseId: variantId,
-        quantity
-      }
-    ]);
     revalidateTag(TAGS.cart);
   } catch (e) {
-    return 'Error updating item quantity';
+    return 'Error adding item to cart';
   }
 }
+export async function deleteItem(prevState: any, selectedVariantId: string) {
+  let cartId = cookies().get('cartId')?.value;
+  let cart;
+
+  if (!cartId) {
+    return;
+  }
+
+  if (!selectedVariantId) {
+    return 'Missing product variant ID';
+  }
+
+  try {
+    cart = JSON.parse(cookies().get('cart')?.value || "{}");
+    if (!cart.items || cart.items[selectedVariantId]) return;
+
+    const price = getProductPriceByVariant(selectedVariantId)
+    if (!price) return console.error("could not get the price of variant: " + selectedVariantId);
+    const amountToRemove = cart.items[selectedVariantId] * price.amount;
+
+    cart.totalAmount = +cart.totalAmount - amountToRemove;
+
+    cart.totalQuantity = cart.totalQuantity - cart.items[selectedVariantId];
+
+    delete cart.items[selectedVariantId];
+
+    cookies().set('cart', JSON.stringify(cart));
+
+    revalidateTag(TAGS.cart);
+  } catch (e) {
+    return 'Error adding item to cart';
+  }
+}
+
+
+
+
+
+export async function getCart(): Promise<Cart | undefined> {
+  let cart;
+  try {
+    const cartString = cookies().get('cart')?.value;
+    if (!cartString) return;
+    cart = JSON.parse(cartString);
+  } catch (e) {
+    console.error(e)
+    return
+  }
+  return cart;
+}
+

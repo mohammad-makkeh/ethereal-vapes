@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { ProductOption, ProductVariant } from 'lib/shopify/types';
+import { ProductOption, ProductVariant } from 'lib/types';
 import { createUrl } from 'lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -27,23 +27,28 @@ export function VariantSelector({
   if (hasNoOptionsOrJustOneOption) {
     return null;
   }
+  
 
-  const combinations: Combination[] = variants.map((variant) => ({
-    id: variant.id,
-    availableForSale: variant.availableForSale,
-    // Adds key / value pairs for each variant (ie. "color": "Black" and "size": 'M").
-    ...variant.selectedOptions.reduce(
-      (accumulator, option) => ({ ...accumulator, [option.name.toLowerCase()]: option.value }),
-      {}
-    )
-  }));
+  // const combinations: Combination[] = variants?.map((variant) => ({
+  //   id: variant.id,
+  //   availableForSale: variant.availableForSale,
+  //   // Adds key / value pairs for each variant (ie. "color": "Black" and "size": 'M").
+  //   ...variant.selectedOptions.reduce(
+  //     (accumulator, option) => ({ ...accumulator, [option.name?.toLowerCase()]: option.value }),
+  //     {}
+  //   )
+  // }));
+
+
+
+
 
   return options.map((option) => (
     <dl className="mb-8" key={option.id}>
       <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt>
       <dd className="flex flex-wrap gap-3">
         {option.values.map((value) => {
-          const optionNameLowerCase = option.name.toLowerCase();
+          const optionNameLowerCase = option.name?.toLowerCase();
 
           // Base option params on current params so we can preserve any other param state in the url.
           const optionSearchParams = new URLSearchParams(searchParams.toString());
@@ -64,14 +69,15 @@ export function VariantSelector({
           // then all other sizes should be disabled.
           const filtered = Array.from(optionSearchParams.entries()).filter(([key, value]) =>
             options.find(
-              (option) => option.name.toLowerCase() === key && option.values.includes(value)
+              (option) => option.name?.toLowerCase() === key && option.values.includes(value)
             )
           );
-          const isAvailableForSale = combinations.find((combination) =>
-            filtered.every(
-              ([key, value]) => combination[key] === value && combination.availableForSale
-            )
-          );
+          // const isAvailableForSale = combinations.find((combination) =>
+          //   filtered.every(
+          //     ([key, value]) => combination[key] === value && combination.availableForSale
+          //   )
+          // );
+          const isAvailableForSale = true;
 
           // The option is active if it's in the url params.
           const isActive = searchParams.get(optionNameLowerCase) === value;

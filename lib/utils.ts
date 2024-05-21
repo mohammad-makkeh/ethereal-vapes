@@ -1,4 +1,5 @@
 import { ReadonlyURLSearchParams } from 'next/navigation';
+import { PRODUCTS } from './constants';
 
 export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) => {
   const paramsString = params.toString();
@@ -37,3 +38,24 @@ export const validateEnvironmentVariables = () => {
     );
   }
 };
+
+
+export function getProductByHandle(handle:string) {
+  return PRODUCTS.find(p => p.handle === handle)
+}
+
+export function getVariantById(variantId:string) {
+  if(!variantId || !variantId.includes("_@@_")) return;
+  for( let i = 0 ; i < PRODUCTS.length ; i++){
+    const variants = PRODUCTS[i]?.variants;
+    if(!variants) continue;
+    const variantFound = variants.find(variant => variant.id === variantId);
+    if(variantFound) return variantFound;
+  }
+}
+
+
+export function getProductPriceByVariant(variantId:string) {
+  const variant = getVariantById(variantId);
+  return variant?.price;
+}
