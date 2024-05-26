@@ -5,14 +5,13 @@ import { MENU_ITEMS } from 'lib/constants';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
-import { SearchSkeleton } from './search';
-const { SITE_NAME } = process.env;
+import Search, { SearchSkeleton } from './search';
 
 export default async function Navbar() {
 
 
   return (
-    <nav className="relative flex items-center justify-between p-4 lg:px-6">
+    <nav className="max-w-screen-xl mx-auto relative flex items-center justify-between p-4 lg:px-6">
       <div className="block flex-none md:hidden">
         <Suspense fallback={null}>
           <MobileMenu menu={MENU_ITEMS} />
@@ -23,7 +22,7 @@ export default async function Navbar() {
           <Link href="/" className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6">
             <LogoSquare />
             <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
-              {SITE_NAME}
+              Ethereal Vapes
             </div>
           </Link>
           {MENU_ITEMS.length ? (
@@ -43,7 +42,7 @@ export default async function Navbar() {
         </div>
         <div className="hidden justify-center md:flex md:w-1/3">
           <Suspense fallback={<SearchSkeleton />}>
-            {/* <Search /> */}
+            <Search />
           </Suspense>
         </div>
         <div className="flex justify-end md:w-1/3">

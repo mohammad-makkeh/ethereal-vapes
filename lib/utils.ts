@@ -1,5 +1,8 @@
+import clsx from 'clsx';
 import { ReadonlyURLSearchParams } from 'next/navigation';
-import { PRODUCTS } from './constants';
+import { twMerge } from 'tailwind-merge';
+import { COLLECTIONS, PRODUCTS } from './constants';
+
 
 export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) => {
   const paramsString = params.toString();
@@ -58,4 +61,21 @@ export function getVariantById(variantId:string) {
 export function getProductPriceByVariant(variantId:string) {
   const variant = getVariantById(variantId);
   return variant?.price;
+}
+
+
+const cn = (...classes: (string | undefined | false | null)[]): string => {
+  return twMerge(clsx(...classes));
+};
+
+export default cn;
+
+
+export function getCollectionProducts(collection?:string) {
+  if(!collection) return;
+  return PRODUCTS.filter(p => p.collection === collection);
+}
+
+export function getCollectionIdFromPathname(collectionathname:string) {
+  return COLLECTIONS.find(c => c.path.includes(collectionathname))
 }

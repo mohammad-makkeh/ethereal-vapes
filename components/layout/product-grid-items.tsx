@@ -15,7 +15,7 @@ export default function ProductGridItems({ products }: { products: any }) {
                 amount: product.amount,
                 currencyCode: "USD"
               }}
-              src={product.featuredImage?.url}
+              src={product.thumbnail}
               fill
               sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
             />

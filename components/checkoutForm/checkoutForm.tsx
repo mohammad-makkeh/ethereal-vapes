@@ -45,6 +45,8 @@ const CheckoutForm_H = () => {
                 .then(response => {
                     if (response.ok) { checkOnlyOnceRef.current = true }
                     console.log("form submitted, " + response.ok)
+                    cookies.remove("cart")
+                    cookies.remove("cartId")
                 })
                 .catch(error => {
                     console.error('Form submission error:', error);

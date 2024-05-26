@@ -1,20 +1,23 @@
 import { GridTileImage } from 'components/grid/tile';
+import cn from 'lib/utils';
 import Link from 'next/link';
 
 function ThreeItemGridItem({
   item,
   size,
-  priority
+  priority,
+  className,
 }: {
   item: any;
   size: 'full' | 'half';
   priority?: boolean;
+  className?: string;
 }) {
   return (
     <div
-      className={size === 'full' ? 'md:col-span-4 md:row-span-2' : 'md:col-span-2 md:row-span-1'}
+      className={cn(size === 'full' ? 'md:col-span-7 md:row-span-3' : 'md:col-span-5 md:row-span-1', className)}
     >
-      <Link className="relative block aspect-square h-full w-full" href={`/product/${item.handle}`}>
+      <Link className={cn("relative block h-full w-full", size === "full" ? "aspect-square" : "pt-[52.25%]")} href={`/product/${item.handle}`}>
         <GridTileImage
           src={item.thumbnail}
           fill
@@ -22,6 +25,7 @@ function ThreeItemGridItem({
             size === 'full' ? '(min-width: 768px) 66vw, 100vw' : '(min-width: 768px) 33vw, 100vw'
           }
           priority={priority}
+          className={cn(size==="full" && 'object-cover')}
           alt={item.title}
           label={{
             position: size === 'full' ? 'center' : 'bottom',
@@ -37,15 +41,16 @@ function ThreeItemGridItem({
 
 export async function ThreeItemGrid({homepageItems} : any) {
 
-  if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
+  if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2] || !homepageItems[3]) return null;
 
-  const [firstProduct, secondProduct, thirdProduct] = homepageItems;
+  const [firstProduct, secondProduct, thirdProduct, fourthProduct] = homepageItems;
 
   return (
-    <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2">
-      <ThreeItemGridItem size="full" item={firstProduct} priority={true} />
-      <ThreeItemGridItem size="half" item={secondProduct} priority={true} />
-      <ThreeItemGridItem size="half" item={thirdProduct} />
+    <section className="mx-auto grid max-w-screen-xl gap-4 px-4 pb-4 md:grid-cols-12 md:grid-rows-3">
+      <ThreeItemGridItem size="full" item={firstProduct} className='md:animate-slide-in-from-left'/>
+      <ThreeItemGridItem size="half" item={secondProduct} priority={true} className='md:animate-slide-in-from-up'/>
+      <ThreeItemGridItem size="half" item={thirdProduct} priority={true} className='md:animate-slide-in-from-right'/>
+      <ThreeItemGridItem size="half" item={fourthProduct} priority={true} className='md:animate-slide-in-from-down'/>
     </section>
   );
 }
