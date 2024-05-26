@@ -18,7 +18,7 @@ export default async function AboutUs() {
             <li><strong>Premium Products:</strong> We meticulously select our range of vapes, ensuring that each product meets our high standards of quality, performance, and style.</li>
             <li><strong>Elegant Design:</strong> Our products are not just functional but also a statement of elegance. We offer sleek, sophisticated designs that enhance your vaping experience.</li>
             <li><strong>Customer-Centric Approach:</strong> Your satisfaction is our top priority. From the moment you visit our store to the time your order arrives at your door, we are committed to providing you with the best service possible.</li>
-            <li><strong>Convenient Delivery:</strong> Enjoy the convenience of having your favorite vapes delivered directly to you. We pride ourselves on fast, reliable shipping to ensure you never run out of your preferred products.</li>
+            <li><strong>Convenient Delivery:</strong> Enjoy the convenience of having your favorite vapes delivered directly to you in the same day. We pride ourselves on fast, reliable shipping to ensure you never run out of your preferred products.</li>
         </ul>
         
         <h2>Our Promise</h2>

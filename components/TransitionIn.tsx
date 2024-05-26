@@ -17,18 +17,19 @@ const animationVariants: Variants = {
   visible: { x: 0, y: 0, opacity: 1 }
 };
 
-const TransitionIn: React.FC<TransitionInProps> = ({ children, from="down" }) => {
+const TransitionIn: React.FC<TransitionInProps & { className?: string }> = ({ children, from = "down", className }) => {
   const controls = useAnimation();
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2});
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
   useEffect(() => {
-    if (inView) { 
+    if (inView) {
       controls.start('visible');
     }
   }, [controls, inView]);
 
   return (
     <motion.div
+      className={className}
       ref={ref}
       initial={from}
       animate={controls}

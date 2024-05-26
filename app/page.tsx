@@ -17,6 +17,12 @@ export default async function HomePage() {
         <CTAProductsBanner />
       </TransitionIn>
       <Footer />
+
+
+      {/* glows */}
+      {/* <Glow className='top-32 right-36'/> */}
+      {/* <Glow className='top-[600px] -left-48 opacity-10' color='gold'/> */}
+      {/* <Glow className='top-[1200px] -right-48' /> */}
     </>
   );
 }
