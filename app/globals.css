@@ -10,6 +10,12 @@
 html {
   color-scheme: light !important;
 }
+:root {
+  color-scheme: only light !important;
+}
+:root {
+  color-scheme: only light;
+}
 
 
 @supports (font: -apple-system-body) and (-webkit-appearance: none) {
