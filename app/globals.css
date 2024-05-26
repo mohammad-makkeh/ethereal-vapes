@@ -7,6 +7,10 @@
     color-scheme: dark;
   }
 } */
+html {
+  color-scheme: light !important;
+}
+
 
 @supports (font: -apple-system-body) and (-webkit-appearance: none) {
   img[loading='lazy'] {
