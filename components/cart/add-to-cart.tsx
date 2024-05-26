@@ -5,7 +5,9 @@ import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import { ProductVariant } from 'lib/types';
+import cn from 'lib/utils';
 import { useSearchParams } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 
 function SubmitButton({
@@ -28,9 +30,29 @@ function SubmitButton({
     );
   }
 
+
+  const [guideMessage, setGuideMessage] = useState(false);
+  const timeoutRef = useRef<any>();
+
+  useEffect(() => {
+    if (guideMessage) {
+      timeoutRef.current = setTimeout(() => setGuideMessage(false), 5000);
+    }
+    return () => {
+      clearTimeout(timeoutRef.current)
+    }
+  }, [guideMessage, setGuideMessage])
+
+
   if (!selectedVariantId) {
     return (
+      <div>
+        <p className={cn('text-red-600 mb-2', !guideMessage && "opacity-0")}>
+          Please choose a flavor first
+        </p>
+      
       <button
+        onClick={() => setGuideMessage(true)}
         aria-label="Please select an option"
         aria-disabled
         className={clsx(buttonClasses, disabledClasses)}
@@ -40,26 +62,31 @@ function SubmitButton({
         </div>
         Add To Cart
       </button>
+      </div>
     );
   }
 
+
   return (
-    <button
-      onClick={(e: React.FormEvent<HTMLButtonElement>) => {
-        if (pending) e.preventDefault();
-      }}
-      aria-label="Add to cart"
-      aria-disabled={pending}
-      className={clsx(buttonClasses, {
-        'hover:opacity-90': true,
-        [disabledClasses]: pending
-      })}
-    >
-      <div className="absolute left-0 ml-4">
-        {pending ? <LoadingDots className="mb-3 bg-white" /> : <PlusIcon className="h-5" />}
-      </div>
-      Add To Cart
-    </button>
+    <div>
+      <button
+        onClick={(e: React.FormEvent<HTMLButtonElement>) => {          
+          if (pending) { e.preventDefault(); }
+        }}
+        aria-label="Add to cart"
+        aria-disabled={pending}
+        className={clsx(buttonClasses, {
+          'hover:opacity-90': true,
+          [disabledClasses]: pending
+        })}
+      >
+        <div className="absolute left-0 ml-4">
+          {pending ? <LoadingDots className="mb-3 bg-white" /> : <PlusIcon className="h-5" />}
+        </div>
+        Add To Cart
+      </button>
+      
+    </div>
   );
 }
 
