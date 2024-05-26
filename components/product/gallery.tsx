@@ -2,15 +2,17 @@
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { GridTileImage } from 'components/grid/tile';
-import { createUrl } from 'lib/utils';
+import { createUrl, getImageIndexByFlavor } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 
-export function Gallery({ images }: { images: { src: string; altText: string }[] }) {
+export function Gallery({ images }: { images: any[] }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const imageSearchParam = searchParams.get('image');
+  const flavor = searchParams.get('flavor');
   const imageIndex = imageSearchParam ? parseInt(imageSearchParam) : 0;
 
   const nextSearchParams = new URLSearchParams(searchParams.toString());
@@ -26,12 +28,26 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
   const buttonClassName =
     'h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center';
 
+    const router = useRouter();
+
+    useEffect(() => {
+      if(!flavor) return;
+      const productHandle = pathname.slice(9);
+      const imageIndex = getImageIndexByFlavor(productHandle, flavor) 
+      const imageSearchParams = new URLSearchParams(searchParams.toString());
+      imageSearchParams.set("image", "" + imageIndex);
+      const imageUrl = createUrl(pathname, imageSearchParams);
+      router.replace(imageUrl, { scroll: false })
+  }, [flavor])
+
+
+
   return (
     <>
       <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
         {images[imageIndex] && (
           <Image
-            className="h-full w-full object-cover"
+            className="h-full w-full object-contain"
             fill
             sizes="(min-width: 1024px) 66vw, 100vw"
             alt={images[imageIndex]?.altText as string}
@@ -79,7 +95,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
                   aria-label="Enlarge product image"
                   href={createUrl(pathname, imageSearchParams)}
                   scroll={false}
-                  className="h-full w-full"
+                  className="block h-full w-full relative"
                 >
                   <GridTileImage
                     alt={image.altText}

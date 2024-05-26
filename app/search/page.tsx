@@ -10,7 +10,7 @@ export default function SearchPage({
     const { sort, q: searchValue } = searchParams as { [key: string]: string };
     const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
 
-    const products = PRODUCTS;
+    const products = searchValue ? PRODUCTS.filter(p => p.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())) : PRODUCTS
     const resultsText = products.length > 1 ? 'results' : 'result';
 
     return (
@@ -25,7 +25,7 @@ export default function SearchPage({
             ) : null}
             {products.length > 0 ? (
                 <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                    <ProductGridItems products={searchValue ? products.filter(p => p.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())) : products} />
+                    <ProductGridItems products={products} />
                 </Grid>
             ) : null}
         </>

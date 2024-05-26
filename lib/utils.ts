@@ -43,22 +43,22 @@ export const validateEnvironmentVariables = () => {
 };
 
 
-export function getProductByHandle(handle:string) {
+export function getProductByHandle(handle: string) {
   return PRODUCTS.find(p => p.handle === handle)
 }
 
-export function getVariantById(variantId:string) {
-  if(!variantId || !variantId.includes("_@@_")) return;
-  for( let i = 0 ; i < PRODUCTS.length ; i++){
+export function getVariantById(variantId: string) {
+  if (!variantId || !variantId.includes("_@@_")) return;
+  for (let i = 0; i < PRODUCTS.length; i++) {
     const variants = PRODUCTS[i]?.variants;
-    if(!variants) continue;
+    if (!variants) continue;
     const variantFound = variants.find(variant => variant.id === variantId);
-    if(variantFound) return variantFound;
+    if (variantFound) return variantFound;
   }
 }
 
 
-export function getProductPriceByVariant(variantId:string) {
+export function getProductPriceByVariant(variantId: string) {
   const variant = getVariantById(variantId);
   return variant?.price;
 }
@@ -71,11 +71,19 @@ const cn = (...classes: (string | undefined | false | null)[]): string => {
 export default cn;
 
 
-export function getCollectionProducts(collection?:string) {
-  if(!collection) return;
+export function getCollectionProducts(collection?: string) {
+  if (!collection) return;
   return PRODUCTS.filter(p => p.collection === collection);
 }
 
-export function getCollectionIdFromPathname(collectionathname:string) {
+export function getCollectionIdFromPathname(collectionathname: string) {
   return COLLECTIONS.find(c => c.path.includes(collectionathname))
+}
+
+export function getImageIndexByFlavor(productHandle: string, flavor: string) {
+  const product = getProductByHandle(productHandle);
+  if (!product?.variants.length || !product?.images?.length) return;
+  for (let i = 0; i < product.images.length; i++) {
+    if (product.images[i]?.option === flavor) return i;
+  }
 }

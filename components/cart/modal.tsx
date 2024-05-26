@@ -47,11 +47,13 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
       const chosenVariant = getVariantById(cartItemId)
       const [productHandle] = cartItemId.split("_@@_");
       if (!chosenVariant || !productHandle) return <p>Couldn't find item</p>
-      chosenVariant.selectedOptions.forEach(({ name, value }: any) => {
-        merchandiseSearchParams[name.toLowerCase()] = value;
-      });
+      let image;
       const product = getProductByHandle(productHandle)
       if (!product) return "Couldn't find asd";
+      chosenVariant.selectedOptions.forEach(({ name, value }: any) => {
+        merchandiseSearchParams[name.toLowerCase()] = value;
+        image = product.images.find(img => img.option === value)?.src;
+      });
       const merchandiseUrl = createUrl(
         `/product/${productHandle}`,
         new URLSearchParams(merchandiseSearchParams)
@@ -79,7 +81,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                   alt={
                     product.title || ""
                   }
-                  src={product.thumbnail}
+                  src={image || product.thumbnail}
                 />
               </div>
 

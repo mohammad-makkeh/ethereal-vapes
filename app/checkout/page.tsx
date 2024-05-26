@@ -2,7 +2,7 @@ import CheckoutForm from "components/checkoutForm/checkoutForm";
 
 export default function page() {
     return (
-        <div className="max-w-screen-xl p-4">
+        <div className="max-w-screen-xl p-4 mx-auto">
             <h1 className="text-4xl font-semibold mt-5">Checkout</h1>
             <p>You're done! Just tell us how to reach you!</p>
 
