@@ -2,12 +2,20 @@ const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        primary: "#0C1671",
-        gold: "#DBA72C",
+        primary: {
+          DEFAULT: "#0C1671",
+          dark : "#1221AA"
+        },
+        gold: {
+          DEFAULT: "#DBA72C",
+          dark: "#E1B54C"
+        },
+        
       },
       fontFamily: {
         sans: ['var(--font-geist-sans)']
