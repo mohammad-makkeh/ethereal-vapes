@@ -78,7 +78,7 @@ export const PRODUCTS = [
     ],
     relatedproducts: ["freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin"],
     collection: "vfeel",
-    descriptionHtml: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    descriptionHtml: "Introducing the epitome of luxury in vaping: our premium 5000 puff VFEEL V9. With an elegant design that exudes sophistication, this vape offers a smooth and tasty experience with every draw. Filled with 18ML of high-quality e-liquid, it delivers long-lasting flavor and satisfaction. Elevate your vaping experience with this unparalleled blend of elegance and performance.",
     options: [
       {
         id: "flavor",
@@ -199,7 +199,7 @@ export const PRODUCTS = [
     ],
     relatedproducts: ["freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin"],
     collection: "freeton",
-    descriptionHtml: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    descriptionHtml: "ntroducing the Freeton Resin Max 2, a vape that combines style and substance with its slick design and luxurious resin touch feel. This modern device is crafted to deliver an exceptional vaping experience, offering a generous 18ML of e-liquid and an impressive 8000 puff capacity. Every puff is full of rich, flavorful vapor that satisfies your taste buds. Elevate your vaping journey with the Freeton Resin Max 2, where cutting-edge design meets unmatched flavor.",
     options: [
       {
         id: "flavor",
@@ -356,7 +356,7 @@ export const PRODUCTS = [
       "freeton-resin", "freeton-resin", "freeton-resin"
     ],
     collection: "freeton",
-    descriptionHtml: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    descriptionHtml: "Meet the Freeton Noble Pro, a bold and strong vape designed for those who crave a powerful experience. This modern device features a sleek screen display that keeps you informed of battery life and e-liquid levels, ensuring you're always in control. With 16ML of tasty e-liquid and an impressive 5000 puff capacity, it delivers consistent and satisfying flavor. Elevate your vaping game with the Freeton Noble Pro and try one now!",
     options: [
       {
         id: "flavor",
@@ -486,7 +486,7 @@ export const PRODUCTS = [
       "freeton-resin", "freeton-resin", "freeton-resin"
     ],
     collection: "vfun",
-    descriptionHtml: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    descriptionHtml: "Introducing the Vfun Leafbar Platinum, a vape that perfectly blends elegance and functionality. With a screen display that shows e-liquid and battery levels, this device keeps you informed and in control. Enjoy strong, smooth flavors with every puff, all wrapped in an elegant design that feels luxurious in your hand. Best of all, the Vfun Leafbar Platinum offers premium quality at an affordable price, making it the perfect choice for discerning vapers.",
     options: [
       {
         id: "flavor",
