@@ -59,6 +59,19 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
         new URLSearchParams(merchandiseSearchParams)
       );
 
+      const isDiscounted = (handle: string) => {
+        if (handle === "vfeel" && quantity >= 3)
+          return "20%"
+        return "";
+      }
+
+      const getAmount = () => {
+        if (isDiscounted(productHandle)) {
+          return ((product.amount * quantity) * 0.8).toFixed(2);
+        }
+        return product.amount * quantity
+      }
+
       return (
         <li
           key={i}
@@ -86,16 +99,21 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
               </div>
 
               <div className="flex flex-1 flex-col text-base">
-                <span className="leading-tight">
-                  {product.title}
-                </span>
+                <div className="flex flex-col gap-1">
+                  <span className="leading-tight">
+                    {product.title}
+                  </span>
+                  {
+                    isDiscounted(productHandle) ? <div className="text-xs font-bold text-red-800 uppercase">20% OFF</div> : null
+                  }
+                </div>
                 <span className="text-blue-600 text-sm font-medium">{chosenVariant.selectedOptions[0]?.value}</span>
               </div>
             </Link>
             <div className="flex h-16 flex-col justify-between">
               <Price
                 className="flex justify-end space-y-2 text-right text-sm font-semibold"
-                amount={String(product.amount * quantity)}
+                amount={String(getAmount())}
                 currencyCode={"USD"}
               />
               <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
@@ -110,6 +128,25 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
         </li>
       );
     })
+  }
+
+  function getOffer() {
+    if (!cart) return;
+    const arr = Object.entries(cart.items);
+    let vfeelCount = 0;
+    for (let i = 0; i < arr.length; i++) {
+      const cartItemId = arr[i]?.[0];
+      const quantity = arr[i]?.[1];
+      if (!cartItemId ||
+        quantity == undefined) return;
+      const [productHandle] = cartItemId.split("_@@_");
+      if (productHandle === "vfeel") vfeelCount += quantity;
+    }
+    if (vfeelCount >= 3) {
+      const product = getProductByHandle("vfeel");
+      if (!product?.amount) return;
+      return (vfeelCount * product?.amount) * 0.2;
+    }
   }
 
 
@@ -160,15 +197,27 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                     {renderCartItems()}
                   </ul>
                   <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
+                    {
+                      getOffer() ?
+                        <div className="mb-3 bg-green-300/80 rounded text-black p-4 py-6 border-none flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
+                          <p>
+                            You saved <span className='text-green-900 font-black'>{getOffer()?.toFixed(2)}$</span> by buying 3 or more of the <span className='font-semibold'>VFEEL</span> vape.
+                          </p>
+                        </div>
+                        : ""
+                    }
+
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
                       <p>Shipping</p>
-                      <p className="text-right">Calculated at checkout</p>
+                      <p
+                        className="text-right text-base text-black dark:text-white"
+                      >3$ <span className='opacity-40 font-normal '>in Beirut,</span> 4$ <span className='opacity-40 font-normal '>outside.</span></p>
                     </div>
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
                       <p>Total</p>
                       <Price
                         className="text-right text-base text-black dark:text-white"
-                        amount={String(cart.totalAmount)}
+                        amount={String(cart.totalAmount - (getOffer() || 0))}
                         currencyCode={"USD"}
                       />
                     </div>

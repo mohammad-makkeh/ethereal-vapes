@@ -6,10 +6,12 @@ export function GridTileImage({
   isInteractive = true,
   active,
   label,
+  offer,
   ...props
 }: {
   isInteractive?: boolean;
   active?: boolean;
+  offer?: boolean;
   label?: {
     title: string;
     amount: string;
@@ -39,6 +41,7 @@ export function GridTileImage({
       {label ? (
         <Label
           title={label.title}
+          offer={offer}
           amount={label.amount}
           currencyCode={label.currencyCode}
           position={label.position}

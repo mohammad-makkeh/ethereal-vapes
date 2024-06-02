@@ -1,5 +1,6 @@
 "use client"
 import LoadingDots from "components/loading-dots";
+import { getProductByHandle } from "lib/utils";
 import { useCookies } from "next-client-cookies";
 import { HubspotProvider, useHubspotForm } from "next-hubspot";
 import { useRef } from "react";
@@ -37,34 +38,92 @@ const CheckoutForm_H = () => {
             const name = formData.get("firstname")
             formData.delete("firstname")
             formData.append("firstname", name + " - order -" + cartId)
-
-            // fetch(form.action, {
-            //     method: form.method,
-            //     body: formData,
-            // })
-            //     .then(response => {
-            //         if (response.ok) { checkOnlyOnceRef.current = true }
-            //         console.log("form submitted, " + response.ok)
-            //         cookies.remove("cart")
-            //         cookies.remove("cartId")
-            //     })
-            //     .catch(error => {
-            //         console.error('Form submission error:', error);
-            //     });
+            
+            fetch(form.action, {
+                method: form.method,
+                body: formData,
+            })
+                .then(response => {
+                    if (response.ok) { checkOnlyOnceRef.current = true }
+                    console.log("form submitted, " + response.ok)
+                    cookies.remove("cart")
+                    cookies.remove("cartId")
+                })
+                .catch(error => {
+                    console.error('Form submission error:', error);
+                });
 
             // Prevent the default form submission
             return false;
         }
     });
 
+
+
+    function getOffer() {
+        if (!cart) return;
+        const cartObj = JSON.parse(cart);
+        const arr = Object.entries(cartObj.items);
+        let vfeelCount = 0;
+        for (let i = 0; i < arr.length; i++) {
+            const cartItemId = arr[i]?.[0];
+            const quantity = arr[i]?.[1];
+            if (!cartItemId ||
+                quantity == undefined) return;
+            const [productHandle] = cartItemId.split("_@@_");
+            if (productHandle === "vfeel") vfeelCount += (quantity as number);
+        }
+        if (vfeelCount >= 3) {
+            const product = getProductByHandle("vfeel");
+            if (!product?.amount) return;
+            return (vfeelCount * product?.amount) * 0.2;
+        }
+    }
+
+
+    function formatOrderDetails(orderJsonString?: string) {
+        if (!orderJsonString) return "empty"
+        try {
+
+            // Parse the JSON string
+            const orderDetails = JSON.parse(orderJsonString);
+
+            // Extract items, totalAmount, and totalQuantity
+            const { items, totalAmount, totalQuantity } = orderDetails;
+
+            // Initialize an array to hold the formatted lines
+            const formattedLines = [];
+
+            // Add items section
+            formattedLines.push("# items:");
+            for (const [key, value] of Object.entries(items)) {
+                formattedLines.push(`${key.replace("_@@_", " (").replaceAll("_", " ")}): ${value},`)
+            }
+
+            // Add separators and totalAmount, totalQuantity sections
+            formattedLines.push("========================");
+            formattedLines.push(`# totalAmount: ${totalAmount - (getOffer() || 0)},`);
+            formattedLines.push("========================");
+            formattedLines.push(`# totalQuantity: ${totalQuantity}`);
+
+            // Join all lines with new line characters
+            return formattedLines.join("\n");
+        } catch (e) {
+            return orderJsonString;
+        }
+    }
+
+
+
     return (
         <>
             <div id="checkout-form-wrapper" />
+            <button onClick={() => console.log(formatOrderDetails(cart))}>ads</button>
             {
                 !loaded && <div className="flex justify-center items-center py-5">
                     <LoadingDots className="bg-black " />
                 </div>
-            } 
+            }
             {
                 error && <div className="flex justify-center items-center py-5">
                     <p className="mb-3">
@@ -77,36 +136,4 @@ const CheckoutForm_H = () => {
             }
         </>
     )
-}
-
-function formatOrderDetails(orderJsonString?: string) {
-    if (!orderJsonString) return "empty"
-    try {
-
-        // Parse the JSON string
-        const orderDetails = JSON.parse(orderJsonString);
-
-        // Extract items, totalAmount, and totalQuantity
-        const { items, totalAmount, totalQuantity } = orderDetails;
-
-        // Initialize an array to hold the formatted lines
-        const formattedLines = [];
-
-        // Add items section
-        formattedLines.push("# items:");
-        for (const [key, value] of Object.entries(items)) {
-            formattedLines.push(`${key.replace("_@@_", " (").replaceAll("_", " ")}): ${value},`)
-        }
-
-        // Add separators and totalAmount, totalQuantity sections
-        formattedLines.push("========================");
-        formattedLines.push(`# totalAmount: ${totalAmount},`);
-        formattedLines.push("========================");
-        formattedLines.push(`# totalQuantity: ${totalQuantity}`);
-
-        // Join all lines with new line characters
-        return formattedLines.join("\n");
-    } catch (e) {
-        return orderJsonString;
-    }
 }

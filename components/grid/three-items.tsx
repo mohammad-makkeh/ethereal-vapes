@@ -6,11 +6,13 @@ function ThreeItemGridItem({
   item,
   size,
   priority,
+  offer,
   className,
 }: {
   item: any;
   size: 'full' | 'half';
   priority?: boolean;
+  offer?: boolean;
   className?: string;
 }) {
   return (
@@ -20,6 +22,7 @@ function ThreeItemGridItem({
       <Link className={cn("relative block h-full w-full", size === "full" ? "aspect-square" : "pt-[52.25%]")} href={`/product/${item.handle}`}>
         <GridTileImage
           src={item.heroImage}
+          offer={offer}
           fill
           sizes={
             size === 'full' ? '(min-width: 768px) 66vw, 100vw' : '(min-width: 768px) 33vw, 100vw'
@@ -47,7 +50,7 @@ export async function ThreeItemGrid({homepageItems} : any) {
 
   return (
     <section className="mx-auto grid max-w-screen-xl gap-4 px-4 pb-4 md:grid-cols-12 md:grid-rows-3">
-      <ThreeItemGridItem size="full" item={firstProduct} className='md:animate-slide-in-from-left'/>
+      <ThreeItemGridItem size="full" item={firstProduct} className='md:animate-slide-in-from-left' offer={true}/>
       <ThreeItemGridItem size="half" item={secondProduct} priority={true} className='md:animate-slide-in-from-up'/>
       <ThreeItemGridItem size="half" item={thirdProduct} priority={true} className='md:animate-slide-in-from-right'/>
       <ThreeItemGridItem size="half" item={fourthProduct} priority={true} className='md:animate-slide-in-from-down'/>
