@@ -59,7 +59,7 @@ const CheckoutForm_H = () => {
 
     return (
         <>
-            <div id="checkout-form-wrapperd" />
+            <div id="checkout-form-wrapper" />
             {
                 !loaded && <div className="flex justify-center items-center py-5">
                     <LoadingDots className="bg-black " />
