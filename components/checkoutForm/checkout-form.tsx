@@ -66,8 +66,13 @@ const CheckoutForm_H = () => {
                 </div>
             }
             {
-                !error && <div className="flex justify-center items-center py-5">
-                    Something went wrong, please refresh the page or contact us at <a className="px-1 text-primary font-semibold" href="mailto:etheralvapes7@gmail.com">etheralvapes7@gmail.com</a> if the issue persists.
+                error && <div className="flex justify-center items-center py-5">
+                    <p className="mb-3">
+                        Something went wrong, please refresh the page.
+                    </p>
+                    <p>
+                        Or contact us at <a className="px-1 text-primary font-semibold" href="mailto:etheralvapes7@gmail.com">etheralvapes7@gmail.com</a> if the issue persists.
+                    </p>
                 </div>
             }
         </>
