@@ -64,7 +64,7 @@ const CheckoutForm_H = () => {
                 !loaded && <div className="flex justify-center items-center py-5">
                     <LoadingDots className="bg-black " />
                 </div>
-            }
+            } 
             {
                 error && <div className="flex justify-center items-center py-5">
                     <p className="mb-3">
