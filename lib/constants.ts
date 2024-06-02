@@ -47,6 +47,7 @@ export const MENU_ITEMS = [
 
 
 export const PRODUCTS = [
+  // vfeel
   {
     handle: "vfeel",
     title: "VFEEL V9 18ML 8000 Puff",
@@ -78,7 +79,7 @@ export const PRODUCTS = [
     ],
     relatedproducts: ["freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin"],
     collection: "vfeel",
-    descriptionHtml: "Introducing the epitome of luxury in vaping: our premium 5000 puff VFEEL V9. With an elegant design that exudes sophistication, this vape offers a smooth and tasty experience with every draw. Filled with 18ML of high-quality e-liquid, it delivers long-lasting flavor and satisfaction. Elevate your vaping experience with this unparalleled blend of elegance and performance.",
+    descriptionHtml: "Introducing the epitome of luxury in vaping: our premium 8000 puff VFEEL V9. With an elegant design that exudes sophistication, this vape offers a smooth and tasty experience with every draw. Filled with 18ML of high-quality e-liquid, it delivers long-lasting flavor and satisfaction. Elevate your vaping experience with this unparalleled blend of elegance and performance.",
     options: [
       {
         id: "flavor",
@@ -160,6 +161,7 @@ export const PRODUCTS = [
       }
     ]
   },
+  // freeton max 2
   {
     handle: "freeton-resin",
     title: "Freeton F-Resin Max 2 8000 Puff",
@@ -317,6 +319,7 @@ export const PRODUCTS = [
       },
     ]
   },
+  // freeton noble pro
   {
     handle: "freeton-noble",
     title: "Freeton Noble Pro 16ML 5000 Puff",
@@ -459,6 +462,7 @@ export const PRODUCTS = [
       }
     ]
   },
+  // vfun leafbar
   {
     handle: "leafbar-platinum",
     title: "Vfun Leafbar Platinum 16ML 5000 puff",
@@ -544,6 +548,7 @@ export const PRODUCTS = [
       }
     ]
   },
+  // happy bar
   {
     "handle": "happybar-4000",
     "title": "Happy Bar Rechargable 4000 Puff",
