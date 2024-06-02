@@ -31,8 +31,8 @@ const Label = ({
       </div>
       {offer && (
         <div className="w-fit flex items-center rounded-full border bg-white/80 p-1 text-xs font-semibold text-black backdrop-blur-md dark:border-neutral-800 dark:bg-black/70 dark:text-white">
-          <h3 className="ml-1 leading-none tracking-tight font-bold bg-red-700 p-2 text-white rounded-full">20% OFF LIMITED OFFER</h3>
-          <h3 className="mr-4 pl-2 leading-none tracking-tight text-base font-bold">Buy 3 for</h3>
+          <h3 className="ml-1 leading-none tracking-tight font-bold bg-red-700 p-2 text-white rounded-full">20% OFF <span className='hidden md:inline'>LIMITED OFFER</span></h3>
+          <h3 className="mr-2 pl-2 leading-none tracking-tight md:text-base font-bold">Buy 3 for</h3>
           <Price
             className="flex-none rounded-full bg-primary p-2 text-white"
             amount={"33.60"}
