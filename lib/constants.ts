@@ -461,7 +461,7 @@ export const PRODUCTS = [
   },
   {
     handle: "leafbar-platinum",
-    title: "Leafbar Platinum 16ML 5000 puff",
+    title: "Vfun Leafbar Platinum 16ML 5000 puff",
     heroImage: "/products/leafbar-platinum.png",
     thumbnail: "/products/vfun/vfun-thumbnail.png",
     amount: 10.99,
@@ -543,13 +543,126 @@ export const PRODUCTS = [
         }
       }
     ]
-  }
-  
+  },
+  {
+    "handle": "happybar-4000",
+    "title": "Happy Bar Rechargable 4000 Puff",
+    "heroImage": "/products/happybar/happybar-4000-thumbnail.png",
+    "thumbnail": "/products/happybar/happybar-4000-thumbnail.png",
+    "amount": 7.75,
+    "availableForSale": true,
+    "images": [
+      {
+        "src": "/products/happybar/4000/Blue_Razz_Lemonade.png",
+        "option": "Blue Razz Lemonade"
+      },
+      {
+        "src": "/products/happybar/4000/Cotton_Candy.png",
+        "option": "Cotton Candy"
+      },
+      {
+        "src": "/products/happybar/4000/Watermelon_Bubblegum.png",
+        "option": "Watermelon Bubblegum"
+      },
+      {
+        "src": "/products/happybar/4000/Berry_Peach.png",
+        "option": "Berry Peach"
+      },
+      {
+        "src": "/products/happybar/4000/Energy_Drink.png",
+        "option": "Energy Drink"
+      }
+    ],
+    "collection": "happybar",
+    "descriptionHtml": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    "options": [
+      {
+        "id": "flavor",
+        "name": "flavor",
+        "title": "flavor",
+        "values": [
+          "Blue Razz Lemonade",
+          "Cotton Candy",
+          "Watermelon Bubblegum",
+          "Berry Peach",
+          "Energy Drink"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": "happybar-4000_@@_blue_razz_lemonade",
+        "availableForSale": true,
+        "selectedOptions": [
+          {
+            "name": "flavor",
+            "value": "Blue Razz Lemonade"
+          }
+        ],
+        "price": {
+          "amount": 7.75,
+          "currencyCode": "USD"
+        }
+      },
+      {
+        "id": "happybar-4000_@@_cotton_candy",
+        "availableForSale": true,
+        "selectedOptions": [
+          {
+            "name": "flavor",
+            "value": "Cotton Candy"
+          }
+        ],
+        "price": {
+          "amount": 7.75,
+          "currencyCode": "USD"
+        }
+      },
+      {
+        "id": "happybar-4000_@@_watermelon_bubblegum",
+        "availableForSale": true,
+        "selectedOptions": [
+          {
+            "name": "flavor",
+            "value": "Watermelon Bubblegum"
+          }
+        ],
+        "price": {
+          "amount": 7.75,
+          "currencyCode": "USD"
+        }
+      },
+      {
+        "id": "happybar-4000_@@_berry_peach",
+        "availableForSale": true,
+        "selectedOptions": [
+          {
+            "name": "flavor",
+            "value": "Berry Peach"
+          }
+        ],
+        "price": {
+          "amount": 7.75,
+          "currencyCode": "USD"
+        }
+      },
+      {
+        "id": "happybar-4000_@@_energy_drink",
+        "availableForSale": true,
+        "selectedOptions": [
+          {
+            "name": "flavor",
+            "value": "Energy Drink"
+          }
+        ],
+        "price": {
+          "amount": 7.75,
+          "currencyCode": "USD"
+        }
+      }
+    ]
+  }  
 ]
-
-
-
-
 
 export const COLLECTIONS = [
   {
@@ -571,5 +684,10 @@ export const COLLECTIONS = [
     title: "VFun x Leafbar",
     value: "vfun",
     path: "/search/vfun",
+  },
+  {
+    title: "Happy Bar",
+    value: "happybar",
+    path: "/search/happybar",
   },
 ]

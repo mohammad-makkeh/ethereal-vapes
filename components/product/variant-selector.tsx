@@ -5,15 +5,14 @@ import { ProductOption, ProductVariant } from 'lib/types';
 import { createUrl } from 'lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-type Combination = {
-  id: string;
-  availableForSale: boolean;
-  [key: string]: string | boolean; // ie. { color: 'Red', size: 'Large', ... }
-};
+// type Combination = {
+//   id: string;
+//   availableForSale: boolean;
+//   [key: string]: string | boolean; // ie. { color: 'Red', size: 'Large', ... }
+// };
 
 export function VariantSelector({
   options,
-  variants
 }: {
   options: ProductOption[];
   variants: ProductVariant[];
@@ -43,11 +42,11 @@ export function VariantSelector({
 
 
 
-  return options.map((option) => (
+  return options?.map((option) => (
     <dl className="mb-8" key={option.id}>
       <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt>
       <dd className="flex flex-wrap gap-3">
-        {option.values.map((value) => {
+        {option?.values?.map((value) => {
           const optionNameLowerCase = option.name?.toLowerCase();
 
           // Base option params on current params so we can preserve any other param state in the url.
@@ -67,11 +66,11 @@ export function VariantSelector({
           // This is the "magic" that will cross check possible variant combinations and preemptively
           // disable combinations that are not available. For example, if the color gray is only available in size medium,
           // then all other sizes should be disabled.
-          const filtered = Array.from(optionSearchParams.entries()).filter(([key, value]) =>
-            options.find(
-              (option) => option.name?.toLowerCase() === key && option.values.includes(value)
-            )
-          );
+          // const filtered = Array.from(optionSearchParams.entries()).filter(([key, value]) =>
+          //   options.find(
+          //     (option) => option.name?.toLowerCase() === key && option.values.includes(value)
+          //   )
+          // );
           // const isAvailableForSale = combinations.find((combination) =>
           //   filtered.every(
           //     ([key, value]) => combination[key] === value && combination.availableForSale

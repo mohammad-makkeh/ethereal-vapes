@@ -23,7 +23,7 @@ const CheckoutForm_H = () => {
 
     const checkOnlyOnceRef = useRef(false);
 
-    const { loaded, error, formCreated } = useHubspotForm({
+    const { loaded, error } = useHubspotForm({
         portalId: '144712970',
         formId: '8667fb10-2801-40c9-a737-1b9f3e26ab2f',
         region: 'eu1',
@@ -38,19 +38,19 @@ const CheckoutForm_H = () => {
             formData.delete("firstname")
             formData.append("firstname", name + " - order -" + cartId)
 
-            fetch(form.action, {
-                method: form.method,
-                body: formData,
-            })
-                .then(response => {
-                    if (response.ok) { checkOnlyOnceRef.current = true }
-                    console.log("form submitted, " + response.ok)
-                    cookies.remove("cart")
-                    cookies.remove("cartId")
-                })
-                .catch(error => {
-                    console.error('Form submission error:', error);
-                });
+            // fetch(form.action, {
+            //     method: form.method,
+            //     body: formData,
+            // })
+            //     .then(response => {
+            //         if (response.ok) { checkOnlyOnceRef.current = true }
+            //         console.log("form submitted, " + response.ok)
+            //         cookies.remove("cart")
+            //         cookies.remove("cartId")
+            //     })
+            //     .catch(error => {
+            //         console.error('Form submission error:', error);
+            //     });
 
             // Prevent the default form submission
             return false;
@@ -59,10 +59,15 @@ const CheckoutForm_H = () => {
 
     return (
         <>
-            <div id="checkout-form-wrapper" />
+            <div id="checkout-form-wrapperd" />
             {
                 !loaded && <div className="flex justify-center items-center py-5">
                     <LoadingDots className="bg-black " />
+                </div>
+            }
+            {
+                !error && <div className="flex justify-center items-center py-5">
+                    Something went wrong, please refresh the page or contact us at <a className="px-1 text-primary font-semibold" href="mailto:etheralvapes7@gmail.com">etheralvapes7@gmail.com</a> if the issue persists.
                 </div>
             }
         </>
@@ -80,18 +85,18 @@ function formatOrderDetails(orderJsonString?: string) {
         const { items, totalAmount, totalQuantity } = orderDetails;
 
         // Initialize an array to hold the formatted lines
-        let formattedLines = [];
+        const formattedLines = [];
 
         // Add items section
         formattedLines.push("# items:");
         for (const [key, value] of Object.entries(items)) {
-            formattedLines.push(`${key}: ${value},`);
+            formattedLines.push(`${key.replace("_@@_", " (").replaceAll("_", " ")}): ${value},`)
         }
 
         // Add separators and totalAmount, totalQuantity sections
-        formattedLines.push("======================");
+        formattedLines.push("========================");
         formattedLines.push(`# totalAmount: ${totalAmount},`);
-        formattedLines.push("======================");
+        formattedLines.push("========================");
         formattedLines.push(`# totalQuantity: ${totalQuantity}`);
 
         // Join all lines with new line characters

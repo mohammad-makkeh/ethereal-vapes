@@ -41,12 +41,12 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
 
   const renderCartItems = () => {
     if (!cart) return "";
-    return Object.entries(cart.items).map(async (cartItem, i) => {
+    return Object.entries(cart.items)?.map(async (cartItem, i) => {
       const [cartItemId, quantity] = cartItem;
       const merchandiseSearchParams = {} as MerchandiseSearchParams;
       const chosenVariant = getVariantById(cartItemId)
       const [productHandle] = cartItemId.split("_@@_");
-      if (!chosenVariant || !productHandle) return <p>Couldn't find item</p>
+      if (!chosenVariant || !productHandle) return "Couldn't find item"
       let image;
       const product = getProductByHandle(productHandle)
       if (!product) return "Couldn't find asd";

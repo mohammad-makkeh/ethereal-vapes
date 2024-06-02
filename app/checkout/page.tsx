@@ -1,4 +1,5 @@
-import CheckoutForm from "components/checkoutForm/checkoutForm";
+/* eslint-disable react/no-unescaped-entities */
+import CheckoutForm from "components/checkoutForm/checkout-form";
 
 export default function page() {
     return (

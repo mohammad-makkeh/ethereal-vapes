@@ -58,7 +58,7 @@ function WhyUs() {
       <h2 className='font-bold text-3xl text-center'>Why Choose Us</h2>
       <TransitionIn>
       <div className="md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10 md:mt-20">
-        {featureItems.map((featureItem, i) => <FeatureItem item={featureItem} key={i} />)}
+        {featureItems?.map((featureItem, i) => <FeatureItem item={featureItem} key={i} />)}
       </div>
       </TransitionIn>
     </div>

@@ -9,7 +9,7 @@ export async function Carousel({carouselProducts}: any) {
   return (
     <div className="max-w-screen-xl mx-auto w-full overflow-x-auto px-4 pb-6 pt-1">
       <ul className="flex gap-4">
-        {carouselProducts.map((product: any, i: number) => (
+        {carouselProducts?.map((product: any, i: number) => (
           <li
             key={`${product.handle}${i}`}
             className="relative aspect-square h-[30vh] "

@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function ProductGridItems({ products }: { products: any }) {
   return (
     <>
-      {products.map((product:any) => (
+      {products?.map((product:any) => (
         <Grid.Item key={product.handle} className="animate-fadeIn">
           <Link className="relative inline-block h-full w-full" href={`/product/${product.handle}`}>
             <GridTileImage

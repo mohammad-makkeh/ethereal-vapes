@@ -38,7 +38,7 @@ export function Gallery({ images }: { images: any[] }) {
       imageSearchParams.set("image", "" + imageIndex);
       const imageUrl = createUrl(pathname, imageSearchParams);
       router.replace(imageUrl, { scroll: false })
-  }, [flavor])
+  }, [flavor, pathname, router, searchParams])
 
 
 
@@ -83,7 +83,7 @@ export function Gallery({ images }: { images: any[] }) {
 
       {images.length > 1 ? (
         <ul className="my-12 flex items-center justify-center gap-2 overflow-auto py-1 lg:mb-0">
-          {images.map((image, index) => {
+          {images?.map((image, index) => {
             const isActive = index === imageIndex;
             const imageSearchParams = new URLSearchParams(searchParams.toString());
 

@@ -77,7 +77,7 @@ export default function MobileMenu({ menu }: { menu: any[] }) {
                 </div>
                 {menu.length ? (
                   <ul className="flex w-full flex-col">
-                    {menu.map((item: any) => (
+                    {menu?.map((item: any) => (
                       <li
                         className="py-2 text-xl text-black transition-colors hover:text-neutral-500 dark:text-white"
                         key={item.title}

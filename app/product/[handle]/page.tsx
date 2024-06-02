@@ -50,7 +50,7 @@ async function RelatedProducts({ handle }: { handle: string }) {
     <div className="py-8">
       <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
       <ul className="flex w-full gap-4 overflow-x-auto pt-1">
-        {relatedProducts.map((productId) => {
+        {relatedProducts?.map((productId) => {
           const product = getProductByHandle(productId)
           if(!product) return;
           return (
