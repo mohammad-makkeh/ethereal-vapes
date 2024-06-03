@@ -482,7 +482,15 @@ export const PRODUCTS = [
       {
         src: "/products/vfun/Peach_Mango_Watermelon.png",
         option: "Peach Mango Watermelon"
-      }
+      },
+      {
+        src: "/products/vfun/Blueberry_Ice.png",
+        option: "Blueberry Ice"
+      },
+      {
+        src: "/products/vfun/Fuji_Apple.png",
+        option: "Fuji Apple"
+      },
     ],
     relatedproducts: [
       "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", "freeton-resin", 
