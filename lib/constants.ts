@@ -499,7 +499,9 @@ export const PRODUCTS = [
         values: [
           "Strawberry Watermelon Passion Fruit",
           "Strawberry Mango Watermelon",
-          "Peach Mango Watermelon"
+          "Peach Mango Watermelon",
+          "Blueberry Ice",
+          "Fuji Apple",
         ]
       }
     ],
@@ -545,7 +547,35 @@ export const PRODUCTS = [
           amount: 10.99,
           currencyCode: "USD"
         }
-      }
+      },
+      {
+        id: "leafbar-platinum_@@_blueberry_ice",
+        availableForSale: true,
+        selectedOptions: [
+          {
+            name: "flavor",
+            value: "Blueberry Ice"
+          }
+        ],
+        price: {
+          amount: 10.99,
+          currencyCode: "USD"
+        }
+      },
+      {
+        id: "leafbar-platinum_@@_fuji_apple",
+        availableForSale: true,
+        selectedOptions: [
+          {
+            name: "flavor",
+            value: "Fuji Apple"
+          }
+        ],
+        price: {
+          amount: 10.99,
+          currencyCode: "USD"
+        }
+      },
     ]
   },
   // happy bar
